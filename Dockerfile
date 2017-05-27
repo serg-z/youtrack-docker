@@ -1,11 +1,11 @@
 FROM java:8-jre
-MAINTAINER tech@uniplug.ru
+MAINTAINER zhur
 
 RUN mkdir -p /opt/youtrack/data /opt/youtrack/backup /opt/youtrack/bin
 
 WORKDIR /opt/youtrack
 
-ENV YOUTRACK_VERSION 2017.2.33063
+ENV YOUTRACK_VERSION 2017.2.33372
 
 RUN apt-get update && \
     apt-get install -y supervisor && \
