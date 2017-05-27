@@ -1,33 +1,48 @@
 # YouTrack on Docker
-	
-[![](https://badge.imagelayers.io/uniplug/youtrack:latest.svg)](https://imagelayers.io/?images=uniplug/youtrack:latest 'Get your own badge on imagelayers.io')
-[![Docker Repository on Quay](https://quay.io/repository/uniplug/youtrack/status "Docker Repository on Quay")](https://quay.io/repository/uniplug/youtrack)
-
 
 This repository contains a Docker image of JetBrains [YouTrack](http://www.jetbrains.com/youtrack).
 
-* The Docker image is available at [uniplug/youtrack](https://registry.hub.docker.com/u/uniplug/youtrack)
-* The GitHub repository is available at [uniplug/docker-youtrack](https://github.com/uniplug/youtrack-docker)
+* The Docker image is available at [zhur/youtrack-docker](https://hub.docker.com/r/zhur/youtrack-docker/)
+* The GitHub repository is available at [zhur/youtrack-docker](https://github.com/serg-z/youtrack-docker)
+
+## Building and pushing image
+
+Install Docker
+
+<https://docs.docker.com/engine/installation/>
+
+Create image
+
+```bash
+docker build -t zhur/youtrack-docker .
+```
+
+Login
+
+```bash
+docker login
+```
+
+Push image
+
+```bash
+docker push zhur/youtrack-docker
+```
 
 ## Usage
 
 Create a named container 'youtrack'.
 
 ```bash
-docker create --name youtrack uniplug/youtrack
+docker create --name youtrack zhur/youtrack-docker
 ```
 
 Start the container.
-
-```bash
-docker start youtrack
-```
-
 YouTrack starts and listens on port 80 in the container.
-To map it to the host's port 80, use the following command to create and start the container instead:
+To map it to the host's port 80, use the following command to create and start the container:
 
 ```bash
-docker run -t --name youtrack -p 80:80 -t uniplug/youtrack
+docker run -t --name youtrack -p 80:80 -t zhur/youtrack-docker
 ```
 
 To access container logs
@@ -49,7 +64,7 @@ docker run -t \
  -v /data/youtrack/data/:/opt/youtrack/data/ \
  -v /data/youtrack/backup/:/opt/youtrack/backup/ \
  -p 80:80 \
- uniplug/youtrack
+ zhur/youtrack-docker
 ```
 
 ### Service example with [jwilder/nginx-proxy](https://hub.docker.com/r/jwilder/nginx-proxy/)
@@ -69,6 +84,6 @@ ExecStart=/usr/bin/docker run -t \
           -v /data/youtrack/data/:/opt/youtrack/data/ \
           -v /data/youtrack/backup/:/opt/youtrack/backup/ \
           -e VIRTUAL_HOST=youtrack.example.com \
-          uniplug/youtrack
+          zhur/youtrack-docker
 ExecStop=-/usr/bin/docker stop youtrack
 ```
